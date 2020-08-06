@@ -1,0 +1,23 @@
+<form [formGroup]="addForm">
+        <div class="form-group">
+          <label for="blogTitle">Blog Title</label>
+          <input type="text" class="form-control" id="blogTitle" name="title" [formControl]="titleFormControl" required placeholder="Your Blog Tilte">
+          <div *ngIf=" (addForm.dirty || addForm.touched)" class="alert alert-danger">
+                Title is required.
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="blogContent">Blog Content</label>
+          <textarea style="height:300px" type="text" class="form-control" name="content" [formControl]="contentFormControl" id="blogContent" placeholder="write your thoughts!">
+            </textarea>
+        </div>
+        <br>
+
+        <div class="form-group">
+                <label for="blogOwner">Blog Owner</label>
+                <input type="text" class="form-control" name="owner" [formControl]="ownerFormControl" id="blogOwner" placeholder="write your name!">
+              </div>
+        
+        <button type="submit" class="btn btn-primary" (click)="createBlog(addForm)">Submit</button>
+</form>
