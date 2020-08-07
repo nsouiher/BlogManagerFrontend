@@ -33,7 +33,7 @@ export class BlogComponent implements OnInit {
   }
   deleteBlog(id:any){
     this.blogservice.deleteBlog(id).subscribe(data=>{
-      console.log(data);
+      this.blogs = this.blogs.filter(b => b.idBlog !== id)
     })
   }
   
