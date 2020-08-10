@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { BlogService } from '../services/blog-service.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -16,12 +17,12 @@ export class BlogFormComponent implements OnInit {
   contentFormControl: FormControl;
   createdAtFormControl: FormControl;
   ownerFormControl: FormControl;
-  constructor(private blogservice:BlogService) { 
+  constructor(private blogservice: BlogService) {
     this.titleFormControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
     this.contentFormControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
     this.createdAtFormControl = new FormControl('');
     this.ownerFormControl = new FormControl('', [Validators.required, Validators.pattern('[a-zA-Z ]*')]);
-    
+
     this.addForm = new FormGroup({
       title: this.titleFormControl,
       content: this.contentFormControl,
@@ -31,22 +32,14 @@ export class BlogFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.createdAtFormControl.setValue(formatDate(new Date(), 'yyyy-MM-ddTHH:MM:ss.sss', 'fr-FR'))
   }
+  
   createBlog(form: FormGroup) {
-    //console.log("validators errors", this.nameFormControl.errors)
-    //this.addFormSubmitted=true;
-    console.log("holaaaa");
-
-    
-      console.log("blog object", form.value)
-      this.blogservice.createBlog(form.value).subscribe(data=>{
-        console.log(data);
-      })
+    console.log(form.value);
+    this.blogservice.createBlog(form.value).subscribe(data => {
       Swal.fire('', "Blog successfully created", 'success');
-
-     
-    
-
+    });    
   }
- 
+
 }

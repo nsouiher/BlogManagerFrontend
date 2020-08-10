@@ -20,6 +20,6 @@ export class BlogService {
     return this.http.post(this.host+"/createblog" ,blog);
   }
   deleteBlog(id:any): Observable<any> {
-    return this.http.post(this.host+"/deleteBlog/"+id,id);
+    return this.http.delete(this.host+"/deleteBlog/"+id);
   }
 }
